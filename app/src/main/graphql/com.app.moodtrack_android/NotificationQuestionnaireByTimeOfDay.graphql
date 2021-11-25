@@ -1,0 +1,49 @@
+query NotificationQuestionnaireByTimeOfDay($notificationQuestionnaireId: ID, $timeOfDay: NQTODInput) {
+    notificationQuestionnaireByTimeOfDay(
+        notificationQuestionnaireId: $notificationQuestionnaireId,
+        timeOfDay: $timeOfDay
+    ){
+        nqId
+        nodes {
+            _id
+            nqId
+            nodeLabel
+            isSourceNode
+            data {
+                nqId
+                type
+                appquestionnaire {
+                    qid
+                    customBody
+                    customTitle
+                }
+                question {
+                    timeOfDay {
+                        minute
+                        hour
+                    }
+                    questionText
+                    questionChoices {
+                        choiceIconMd5
+                        choiceIconId
+                        choiceIcon
+                        choiceValueType
+                        choiceValue
+                    }
+                }
+            }
+        }
+        edges {
+            _id
+            nqId
+            source
+            target
+            edgeLabel
+            condition {
+                condition
+                conditionValue
+                conditionType
+            }
+        }
+    }
+}

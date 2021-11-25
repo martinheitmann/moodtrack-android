@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.app.moodtrack_android">
+
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:name=".MoodtrackAndroidApp"
+        android:usesCleartextTraffic="${clearTextEnabled}"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_display_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+        tools:ignore="AllowBackup">
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <service
+            android:name=".messaging.MessagingService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".messaging.MessageJobIntentService"
+            android:permission="android.permission.BIND_JOB_SERVICE" >
+        </service>
+        <service
+            android:name=".messaging.InitNotificationQuestionnaireJobService"
+            android:label="Initialize Notification Questionnaire Job Service"
+            android:permission="android.permission.BIND_JOB_SERVICE" >
+        </service>
+        <service
+            android:name=".messaging.NotificationLoopJobService"
+            android:label="Notification Loop Job Service"
+            android:permission="android.permission.BIND_JOB_SERVICE" >
+        </service>
+        <service android:name=".messaging.MessageResultReceiverJobIntentService"
+            android:permission="android.permission.BIND_JOB_SERVICE" >
+        </service>
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            tools:node="remove">
+        </provider>
+        <receiver
+            android:name=".messaging.MessagingBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+    </application>
+
+</manifest>

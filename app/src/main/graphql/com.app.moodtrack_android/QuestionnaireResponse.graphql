@@ -1,0 +1,33 @@
+
+mutation CreateQuestionnaireResponse($questionnaireResponse: InAppQuestionnaireResponseInput) {
+    createInAppQuestionnaireResponse(questionnaireResponse: $questionnaireResponse){
+        _id
+        timestamp
+        name
+        user {
+            _id
+        }
+        questionnaire {
+            _id
+        }
+        multipleChoiceItems {
+            index
+            question
+            choices {
+                display
+                value
+                type
+            }
+            selectedChoice {
+                display
+                value
+                type
+            }
+        }
+        freeTextItems {
+            index
+            question
+            response
+        }
+    }
+}

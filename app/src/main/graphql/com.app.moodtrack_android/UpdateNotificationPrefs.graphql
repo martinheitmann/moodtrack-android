@@ -1,0 +1,16 @@
+
+mutation UpdateNotificationsPrefs($_id: ID, $notifEnabled: Boolean) {
+    modifyUser(_id:$_id, user:{
+        notificationsEnabled: $notifEnabled
+    }){
+        _id
+        email
+        firstName
+        lastName
+        age
+        fcmRegistrationToken
+        notificationsEnabled
+        profileImage
+        creationDate
+    }
+}

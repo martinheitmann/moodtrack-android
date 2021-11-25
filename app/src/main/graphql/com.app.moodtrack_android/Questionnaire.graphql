@@ -1,0 +1,21 @@
+query Questionnaire($questionnaireId: ID) {
+    latestInAppQuestionnaireContent(questionnaireId:$questionnaireId){
+        _id
+        creationDate
+        questionnaireId
+        multipleChoiceItems {
+            _id
+            index
+            question
+            choices {
+                display
+                value
+                type
+            }
+        }
+        freeTextItems {
+            index
+            question
+        }
+    }
+}

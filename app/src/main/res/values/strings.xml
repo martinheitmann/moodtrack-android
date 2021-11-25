@@ -1,0 +1,83 @@
+<resources>
+    <string name="app_name">MoodTracker-Android-Alerts</string>
+    <string name="app_display_name">MoodTrack</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome!"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="default_notification_channel_id">TEST_CHANNEL_APP</string>
+    <string name="fcm_message">Message</string>
+
+    <!-- Intent extras -->
+    <string name="notification_questionnaire_id">NOTIFICATION_QUESTIONNAIRE_ID</string>
+    <string name="notification_questionnaire_response_id">NOTIFICATION_QUESTIONNAIRE_RESPONSE_ID</string>
+    <string name="notification_questionnaire_response">NOTIFICATION_QUESTIONNAIRE_RESPONSE</string>
+    <string name="notification_question_id">NOTIFICATION_QUESTION_ID</string>
+    <string name="notification_node">NOTIFICATION_QUESTION</string>
+    <string name="notification_node_id">NOTIFICATION_NODE_ID</string>
+    <string name="notification_node_previous">NOTIFICATION_QUESTION_PREVIOUS</string>
+    <string name="notification_node_next">NOTIFICATION_QUESTION_NEXT</string>
+    <string name="notification_questionnaire">NOTIFICATION_QUESTIONNAIRE</string>
+    <string name="notification_follow_up_question_id">NOTIFICATION_FOLLOW_UP_QUESTION_ID</string>
+    <string name="notification_follow_up_question">NOTIFICATION_FOLLOW_UP_QUESTION</string>
+    <string name="notification_id">NOTIFICATION_ID</string>
+    <string name="notification_choice_data">NOTIFICATION_CHOICE_DATA</string>
+    <string name="notification_question_is_follow_up">NOTIFICATION_QUESTION_IS_FOLLOW_UP</string>
+
+    <string name="in_app_questionnaire_id">IN_APP_QUESTIONNAIRE_ID</string>
+    <string name="notification_message_id">NOTIFICATION_MESSAGE_ID</string>
+
+
+    <!-- Constants -->
+    <string name="is_dry_run">dry-run</string>
+    <string name="in_app_questionnaire">appquestionnaire</string>
+    <string name="question">question</string>
+    <string name="choice_icon">icon</string>
+    <string name="choice_value">value</string>
+    <string name="choice_type">type</string>
+    <string name="choice_icon_id">icon_id</string>
+    <string name="choice_icon_md5">icon_id</string>
+
+
+    <!-- SharedPrefs -->
+    <string name="notification_settings_sharedprefs">NOTIFICATION_SETTINGS_SHARED_PREFS</string>
+    <string name="app_shared_prefs">MOODTRACK_SHARED_PREFS</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+    <!-- App contents -->
+
+    <string name="app_text_info">MoodTrack er del av et forskningsprosjekt som utforsker forskjellige teknikker for å innhente informasjon fra brukere. Vi ønsker å gjøre dette slik at det blir enkelt og effektivt for brukeren samtidig som at informasjonen er nøyaktig. Målet er å anvende disse teknikkene for å hjelpe folk som har en vanskelig hverdag f.eks pga stress eller psykiske problemer.
+Ved å svare på disse spørsmålene hjelper du oss videre i prosjektet.</string>
+
+    <string name="app_contact_info">Hvis du har tilbakemeldinger eller spørsmål angående appen eller prosjektet, gjerne send en epost til Rosaline.Barendregt@uib.no.</string>
+
+    <string name="in_app_questionnaire_notification_default_title">Nytt spørreskjema</string>
+    <string name="in_app_questionnaire_notification_default_body">Vi har sendt deg et spørreskjema, og håper du kan besvare det for oss. Trykk her for å åpne!</string>
+
+    <!-- Notification Channel -->
+    <string name="notification_channel_name">App Notifikasjoner</string>
+    <string name="notification_channel_id">MOODTRACK_NOTIFICATION_CHANNEL</string>
+    <string name="notification_channel_description">MoodTrack notifikasjoner for spørreundersøkelse</string>
+
+</resources>

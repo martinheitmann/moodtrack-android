@@ -1,0 +1,10 @@
+query IconsByName($filenames: [String]) {
+    iconsByName(filenames: $filenames) {
+        _id
+        filename
+        length
+        uploadDate
+        md5
+        data
+    }
+}

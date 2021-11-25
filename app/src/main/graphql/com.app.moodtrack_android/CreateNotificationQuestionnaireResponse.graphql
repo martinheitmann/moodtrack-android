@@ -1,0 +1,34 @@
+mutation CreateNotificationQuestionnaireResponse($notificationQuestionnaireResponseInput: NotificationQuestionnaireResponseInput) {
+    createNotificationQuestionnaireResponse(notificationQuestionnaireResponse: $notificationQuestionnaireResponseInput) {
+        _id
+        user {
+            _id
+            email
+        }
+        notificationQuestionnaire {
+            _id
+            name
+        }
+        timestamp
+        previous
+        next
+        nodeId
+        responseData {
+            questionText
+            choices {
+                choiceIconMd5
+                choiceIconId
+                choiceIcon
+                choiceValueType
+                choiceValue
+            }
+            selectedChoice {
+                choiceIconMd5
+                choiceIconId
+                choiceIcon
+                choiceValueType
+                choiceValue
+            }
+        }
+    }
+}

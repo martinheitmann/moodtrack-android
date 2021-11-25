@@ -1,0 +1,7 @@
+mutation Register($email: String, $password: String) {
+    registerUser(email: $email, password: $password){
+        _id
+        fcmRegistrationToken
+        notificationsEnabled
+    }
+}

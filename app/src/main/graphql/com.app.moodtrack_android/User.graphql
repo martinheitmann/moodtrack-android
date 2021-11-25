@@ -1,0 +1,13 @@
+query User($_id: ID){
+    user(_id: $_id){
+        _id
+        email
+        firstName
+        lastName
+        fcmRegistrationToken
+        age
+        notificationsEnabled
+        profileImage
+        creationDate
+    }
+}
