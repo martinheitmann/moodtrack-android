@@ -32,23 +32,39 @@ storeFile=
 ## Build and Install
 If properly configured, the code required for Android Apollo should be generated when the Gradle build process is started. 
 
-For development purposes, the URL to the API can be defined in the app-level ```gradle.build``` file. By default, the ```SERVER_URL``` build config field is set to ```http://10.0.2.2:4000/graphql```. To customize this, replace ```<port>``` and ```<endpoint>``` with your API port and endpoint. 
+Before building, a ```keystore.properties``` and a ```config.properties```must be created in the project root. For development purposes, ```config.properties``` should at least contain the URL to your local API:
+````
+deploymentUrl="https://your-url-here/graphql"
+developmentUrl="http://10.0.2.2:4000/graphql"
+````
+
+For development purposes, the URL to the API can also be defined directly in the app-level ```gradle.build``` file. To customize this, replace ```<port>``` and ```<endpoint>``` with your API port and endpoint. 
 ````
 debug {  
-  manifestPlaceholders = [clearTextEnabled: "true"]  
-  debuggable true  
-  signingConfig signingConfigs.debug  
-  buildConfigField "String", "SERVER_URL", '"http://10.0.2.2:<port>/<endpoint>"'  
+    manifestPlaceholders = [clearTextEnabled: "true"]  
+    debuggable true  
+    signingConfig signingConfigs.debug  
+    buildConfigField "String", "SERVER_URL", '"http://10.0.2.2:<port>/<endpoint>"'  
 }
 ````
 
 For deployment purposes, the ```SERVER_URL``` field should point to your API endpoint in your ```release``` build type:
 `````
 release {  
-  manifestPlaceholders = [clearTextEnabled:  "false"]  
-  signingConfig signingConfigs.release  
-  buildConfigField "String", "SERVER_URL", '"http://your-api/endpoint"'  
+    manifestPlaceholders = [clearTextEnabled:  "false"]  
+    signingConfig signingConfigs.release  
+    buildConfigField "String", "SERVER_URL", '"http://your-api/endpoint"'  
 }
 `````
+
+If you defined your server URL in ``config.properties```, ``ou can instead just refer to the config file contents:
+
+````
+release {
+    manifestPlaceholders = [clearTextEnabled:  "false"]
+    signingConfig signingConfigs.release
+    buildConfigField "String", "SERVER_URL", configProperties['deploymentUrl']
+}
+````
  
  A Firebase project with [Firebase Authentication](https://firebase.google.com/docs/auth) is needed in order to enable authentication features. In order to use different Firebase projects for different releases, place your ```google-services.json``` in a folder under ```app/src``` which corresponds to your build type (for instance ```app/src/debug/google-services.json``` for a development environment with the name ```debug```).
