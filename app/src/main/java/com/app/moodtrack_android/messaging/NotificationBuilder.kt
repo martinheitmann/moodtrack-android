@@ -17,6 +17,7 @@ import android.text.SpannableString
 import android.text.style.StyleSpan
 import android.util.Log
 import android.view.View
+import android.widget.ImageButton
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -26,11 +27,23 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.IOException
 import javax.inject.Inject
 
+/**
+ * Class for building and sending notifications related to questions and questionnaires.
+ *
+ */
 class NotificationBuilder @Inject constructor(
     @ApplicationContext val context: Context
 ) {
-    val TAG = "NotificationBuilder"
+    val tag = "NotificationBuilder"
 
+    /**
+     * Creates and notifies with a questionnaire notification,
+     * sending the user to answer a questionnaire upon opening.
+     * @param title The title of the notification.
+     * @param body The notification body.
+     * @param pendingIntent The [PendingIntent] to be attached.
+     * @param notificationId the id of the notification.
+     */
     fun createQuestionnaireNotification(
         title: String?,
         body: String?,
@@ -39,6 +52,7 @@ class NotificationBuilder @Inject constructor(
     ){
         createNotificationChannel()
 
+        // If null, default to values from strings.
         val notificationTitle = title ?: context.getString(R.string.in_app_questionnaire_notification_default_title)
         val notificationBody = body ?: context.getString(R.string.in_app_questionnaire_notification_default_title)
 
@@ -63,18 +77,24 @@ class NotificationBuilder @Inject constructor(
         }
     }
 
+    /**
+     * Creates and notifies with a question notification,
+     * sending the user to answer a questionnaire upon opening.
+     * @param text The question text to display.
+     * @param buttons Buttons to be displayed in notification.
+     * @param notificationId ID of notification.
+     */
     fun createQuestionNotification(
         text: String,
         buttons: List<Pair<Bitmap, PendingIntent>>,
         notificationId: Int,
     ) {
-        // Create an explicit intent for an Activity in your app
+        // Create an explicit intent for an Activity
         val intent = Intent(context, MainActivity::class.java)
         val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
 
         // Get the layouts to use in the custom notification
-
-        val notificationLayout = createHorizontalNotificationRemoteView(text, buttons)
+        val notificationLayout = generateHorizontalNotificationRemoteView(text, buttons)
         createNotificationChannel()
         // Apply the layouts to the notification
         val customNotification =
@@ -92,6 +112,8 @@ class NotificationBuilder @Inject constructor(
     }
 
     /**
+     * Creates the notification channel.
+     *
      * This should probably be created at application startup rather than
      * for each notification.
      * TODO: Move [createNotificationChannel] to [MainActivity]
@@ -126,9 +148,57 @@ class NotificationBuilder @Inject constructor(
     }
 
     /**
-     * This is a really, really bad way to populate a RemoteView.
-     * TODO: Fix messy [createHorizontalNotificationRemoteView] function.
+     * Creates and populates a [RemoteViews] with the given
+     * list of [Bitmap] objects. Additionally sets the corresponding [PendingIntent]
+     * for the notification [ImageButton].
+     * @param text Notification text to be displayed.
+     * @param buttons A list of [Pair] containing [Bitmap] and [PendingIntent] objects.
      */
+    private fun generateHorizontalNotificationRemoteView(
+        text: String,
+        buttons: List<Pair<Bitmap, PendingIntent>>,
+    ): RemoteViews {
+        val remoteView = selectRemoteView(buttons.size)
+        remoteView.removeAllViews(R.id.r_custom_notification_h_icon_container)
+        remoteView.setTextViewText(R.id.r_custom_notification_h_textview_question, text)
+        for(i in buttons.indices){
+            val imageButton = RemoteViews(context.packageName, R.layout.notification_imagebutton)
+            imageButton.setImageViewBitmap(R.id.notification_imagebutton_view, buttons[i].first)
+            imageButton.setOnClickPendingIntent(R.id.notification_imagebutton_view, buttons[i].second)
+            remoteView.addView(R.id.r_custom_notification_h_icon_container, imageButton)
+        }
+        return remoteView
+    }
+
+    /**
+     * Selects an appropriate [RemoteViews] based on the argument integer.
+     * @param elementCount the element count.
+     * @return [RemoteViews] corresponding to the argument integer.
+     * @throws [IllegalArgumentException] if the argument is less than 1 or greater than 5.
+     */
+    private fun selectRemoteView(elementCount: Int): RemoteViews {
+        if(elementCount > 5 || elementCount < 1){
+            throw IllegalArgumentException("Argument 'elementCount' must be a value between 1 and 5. Received ${elementCount}.")
+        }
+        return when {
+            elementCount < 3 -> {
+                RemoteViews(context.packageName, R.layout.custom_notification_layout_horizontal_4_2)
+            }
+            elementCount > 3 -> {
+                RemoteViews(context.packageName, R.layout.custom_notification_layout_horizontal_2_3)
+            }
+            else -> {
+                RemoteViews(context.packageName, R.layout.custom_notification_layout_horizontal_equal)
+            }
+        }
+    }
+
+    /**
+     * This is a really, really bad way to populate a RemoteView.
+     *
+     * TODO: Remove method.
+     */
+    @Deprecated("Replaced by NotificationBuilder.generateHorizontalNotificationRemoteView")
     private fun createHorizontalNotificationRemoteView(
         text: String,
         buttons: List<Pair<Bitmap, PendingIntent>>,
@@ -136,7 +206,7 @@ class NotificationBuilder @Inject constructor(
         val remoteView =
             RemoteViews(context.packageName, R.layout.custom_notification_layout_horizontal)
         remoteView.setTextViewText(R.id.custom_notification_h_textview_question, text)
-        Log.d(TAG, "Bitmap/PendingIntent list contained ${buttons.size} elements")
+        Log.d(tag, "Bitmap/PendingIntent list contained ${buttons.size} elements")
         when (buttons.size) {
             0 -> {
                 throw IOException("Cannot render notification with zero button elements")
@@ -214,7 +284,6 @@ class NotificationBuilder @Inject constructor(
                 throw IOException("Cannot render notification with more than 5 elements. Argument contained ${buttons.size}")
             }
         }
-
         return remoteView
     }
 }
