@@ -1,0 +1,11 @@
+query Posts {
+    posts {
+        _id
+        created
+        title
+        body
+        type
+        iconId
+        pinned
+    }
+}

@@ -1,0 +1,70 @@
+query NotificationQuestionnaireResponsesBetween($_id: ID, $gte: Date, $lte: Date) {
+    notificationQuestionnaireResponsesBetween(_id: $_id, gte: $gte, lte: $lte) {
+        _id
+        timestamp
+        user {
+            _id
+            email
+        }
+        notificationQuestionnaire {
+            _id
+            name
+        }
+        previous
+        next
+        nodeId
+        node {
+            _id
+            isArchived
+            isSourceNode
+            nodeLabel
+            nqId
+            data {
+                appquestionnaire {
+                    customBody
+                    customTitle
+                    qid
+                    timeOfDay{
+                        hour
+                        minute
+                    }
+                }
+                nqId
+                type
+                question {
+                    questionChoices {
+                        choiceIcon
+                        choiceIconId
+                        choiceIconMd5
+                        choiceValue
+                        choiceValueType
+                    }
+                    questionText
+                    timeOfDay {
+                        hour
+                        minute
+                    }
+                    visible
+                }
+            }
+        }
+        messageId
+        responseData {
+            questionText
+            choices {
+                choiceIcon
+                choiceValueType
+                choiceValue
+                choiceIconId
+                choiceIconMd5
+            }
+            selectedChoice {
+                choiceIcon
+                choiceValueType
+                choiceValue
+                choiceIconId
+                choiceIconMd5
+            }
+        }
+    }
+}

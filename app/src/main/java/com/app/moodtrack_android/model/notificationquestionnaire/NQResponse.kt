@@ -11,5 +11,6 @@ data class NQResponse(
     val nextNodeId: String?,
     val previousNodeId: String? = null,
     val timestamp: Date,
-    val responseData: NQResponseData
+    val responseData: NQResponseData,
+    val node: NQNode? = null
 ) : Serializable

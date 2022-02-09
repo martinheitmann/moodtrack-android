@@ -43,7 +43,7 @@
     <string name="choice_value">value</string>
     <string name="choice_type">type</string>
     <string name="choice_icon_id">icon_id</string>
-    <string name="choice_icon_md5">icon_id</string>
+    <string name="choice_icon_md5">icon_md5</string>
 
 
     <!-- SharedPrefs -->

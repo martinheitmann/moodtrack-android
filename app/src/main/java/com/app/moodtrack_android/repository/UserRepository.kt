@@ -24,11 +24,11 @@ class UserRepository @Inject constructor(
      */
 
     suspend fun fetchUserOnce(uid: String): User? {
-        try {
-            return graphQLUserDao.queryUser(uid)
+        return try {
+            graphQLUserDao.queryUser(uid)
         } catch(error: Throwable){
             Log.d(TAG, error.stackTraceToString())
-            return null
+            null
         }
     }
 

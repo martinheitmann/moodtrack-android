@@ -19,7 +19,7 @@ class GraphQLUserDao @Inject constructor(
     private val client: ApolloClient,
     private val tokenResolver: FirebaseAuthIdTokenResolver
 ) {
-    val TAG = "GQLUserDao"
+    val tag = "GQLUserDao"
 
     suspend fun queryUser(id: String): User {
         try {
@@ -53,7 +53,7 @@ class GraphQLUserDao @Inject constructor(
                 }
             } else {
                 response.errors?.forEach { error ->
-                    Log.d(TAG, error.message)
+                    Log.d(tag, error.message)
                 }
                 throw IOException("Received response contained error(s): ${response.errors?.joinToString { e -> e.message }}")
             }
@@ -64,7 +64,7 @@ class GraphQLUserDao @Inject constructor(
 
     suspend fun updateNotificationPreferences(id: String, notificationPrefsValue: Boolean): User {
         try {
-            Log.d(TAG, "updateNotificationPreferences called with value $notificationPrefsValue")
+            Log.d(tag, "updateNotificationPreferences called with value $notificationPrefsValue")
             val idToken = tokenResolver.fetchIdToken()
             val response = client.mutate(
                 UpdateNotificationsPrefsMutation(
@@ -87,7 +87,7 @@ class GraphQLUserDao @Inject constructor(
                     val userData = data.modifyUser
                     if (userData._id != null) {
                         Log.d(
-                            TAG,
+                            tag,
                             "updateNotificationPreferences returned ${userData.notificationsEnabled}"
                         )
                         return User(

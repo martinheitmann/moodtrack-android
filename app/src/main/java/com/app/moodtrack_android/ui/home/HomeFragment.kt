@@ -63,8 +63,12 @@ class HomeFragment : Fragment() {
 
         binding.homeSettingsButton.setOnClickListener {
             val bundle = Bundle()
-            //bundle.putParcelable("user", viewModel.user.value)
             findNavController().navigate(R.id.action_homeFragment_to_settingsFragment2, bundle)
+        }
+
+        binding.homeImagebuttonResponseCalendar.setOnClickListener {
+            val bundle = Bundle()
+            findNavController().navigate(R.id.action_homeFragment_to_responseOverviewFragment, bundle)
         }
 
         binding.homeButtonErrorRetry.setOnClickListener {

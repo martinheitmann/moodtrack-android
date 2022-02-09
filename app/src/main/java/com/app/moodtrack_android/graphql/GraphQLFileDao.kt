@@ -119,7 +119,7 @@ class GraphQLFileDao @Inject constructor(
                                     )
                                 )
                             } else {
-                                throw IOException("Received response contained one or more null fields")
+                                throw IOException("Received response contained one or more null fields. Queried for: ${fileIds.joinToString()}")
                             }
                         }
                         return result

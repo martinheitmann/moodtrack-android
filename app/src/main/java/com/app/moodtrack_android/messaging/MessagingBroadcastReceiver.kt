@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MessagingBroadcastReceiver : BroadcastReceiver() {
-    val TAG = "MessagingBroadcastRec"
+    val tag = "MessagingBroadcastRec"
 
     @Inject
     lateinit var gson: Gson
@@ -26,7 +26,8 @@ class MessagingBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         try {
             if (intent != null && context != null) {
-                val isDryRun = intent.extras?.get(context.getString(R.string.is_dry_run)) as Boolean?
+                val isDryRun =
+                    intent.extras?.get(context.getString(R.string.is_dry_run)) as Boolean?
                 val messageId =
                     intent.extras?.get(context.getString(R.string.notification_message_id)) as String
                 val choiceIcon =
@@ -47,6 +48,11 @@ class MessagingBroadcastReceiver : BroadcastReceiver() {
                     context.getString(R.string.notification_questionnaire)
                 ) as NotificationQuestionnaireByTimeOfDay
 
+                logVars(
+                    isDryRun, messageId, choiceIcon, choiceIconId, choiceIconMd5, choiceValue,
+                    choiceType, notificationId, notificationNode, notificationQuestionnaire
+                )
+
                 val notificationManager =
                     context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                 notificationManager.cancel(notificationId)
@@ -59,9 +65,18 @@ class MessagingBroadcastReceiver : BroadcastReceiver() {
                     context.getString(R.string.notification_message_id),
                     messageId
                 )
-                persistableBundle.putBoolean(context.getString(R.string.is_dry_run), isDryRun ?: true)
-                persistableBundle.putString(context.getString(R.string.choice_icon_id), choiceIconId)
-                persistableBundle.putString(context.getString(R.string.choice_icon_md5), choiceIconMd5)
+                persistableBundle.putBoolean(
+                    context.getString(R.string.is_dry_run),
+                    isDryRun ?: true
+                )
+                persistableBundle.putString(
+                    context.getString(R.string.choice_icon_id),
+                    choiceIconId
+                )
+                persistableBundle.putString(
+                    context.getString(R.string.choice_icon_md5),
+                    choiceIconMd5
+                )
                 persistableBundle.putString(context.getString(R.string.choice_icon), choiceIcon)
                 persistableBundle.putString(context.getString(R.string.choice_value), choiceValue)
                 persistableBundle.putString(context.getString(R.string.choice_type), choiceType)
@@ -83,10 +98,58 @@ class MessagingBroadcastReceiver : BroadcastReceiver() {
                 val jobScheduler: JobScheduler = context.getSystemService(JobScheduler::class.java)
                 jobScheduler.schedule(jobInfo)
             } else {
-                Log.d(TAG, "Received intent or context was null.")
+                Log.d(tag, "Received intent or context was null.")
             }
         } catch (e: Throwable) {
-            Log.d(TAG, e.stackTraceToString())
+            Log.d(tag, e.stackTraceToString())
         }
+    }
+
+    private fun logVars(
+        isDryRun: Boolean?,
+        messageId: String?,
+        choiceIcon: String?,
+        choiceIconId: String?,
+        choiceIconMd5: String?,
+        choiceValue: String?,
+        choiceType: String?,
+        notificationId: Int?,
+        notificationNode: NQNode?,
+        notificationQuestionnaire: NotificationQuestionnaireByTimeOfDay?
+    ) {
+        if (isDryRun == null) Log.d(tag, "WARNING isDryRun is null.")
+        if (messageId == null) Log.d(tag, "WARNING messageId is null.")
+        if (choiceIcon == null) Log.d(
+            tag,
+            "WARNING choiceIcon is null."
+        )
+        if (choiceIconId == null) Log.d(
+            tag,
+            "WARNING choiceIconId is null."
+        )
+        if (choiceIconMd5 == null) Log.d(
+            tag,
+            "WARNING choiceIconMd5 is null."
+        )
+        if (choiceValue == null) Log.d(
+            tag,
+            "WARNING choiceValue is null."
+        )
+        if (choiceType == null) Log.d(
+            tag,
+            "WARNING choiceType is null."
+        )
+        if (notificationId == null) Log.d(
+            tag,
+            "WARNING notificationId is null."
+        )
+        if (notificationNode == null) Log.d(
+            tag,
+            "WARNING notificationNode is null."
+        )
+        if (notificationQuestionnaire == null) Log.d(
+            tag,
+            "WARNING notificationQuestionnaire is null."
+        )
     }
 }

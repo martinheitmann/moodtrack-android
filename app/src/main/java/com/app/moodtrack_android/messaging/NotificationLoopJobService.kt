@@ -27,9 +27,9 @@ import javax.inject.Inject
  * Class responsible for the notification flow logic.
  */
 @AndroidEntryPoint
-class  NotificationLoopJobService : JobService() {
+class NotificationLoopJobService : JobService() {
 
-    val TAG = "NotifLoopJobService"
+    val tag = "NotifLoopJobService"
 
     // Define the coroutine scope
     private val serviceJob = Job()
@@ -63,7 +63,13 @@ class  NotificationLoopJobService : JobService() {
                     params?.extras?.getString(getString(R.string.notification_node))
                 val sNotificationQuestionnaire =
                     params?.extras?.getString(getString(R.string.notification_questionnaire)) // JSON serialized
-                Log.d(TAG, "isDryRun: $bIsDryRun")
+                Log.d(tag, "isDryRun: $bIsDryRun")
+
+                logVars(
+                    isDryRun = bIsDryRun, messageId = sMessageId, choiceIcon = sChoiceIcon,
+                    choiceIconId = sChoiceIconId, choiceIconMd5 = sChoiceIconMd5,
+                    choiceValue = sChoiceValue, choiceType = sChoiceType
+                )
 
                 // Would probably be a good idea to do more null checks than just these.
                 if (sMessageId != null && sChoiceIcon != null && sChoiceType != null && sChoiceValue != null && sChoiceIconId != null) {
@@ -136,7 +142,7 @@ class  NotificationLoopJobService : JobService() {
                             )
                         } ?: run {
                             Log.d(
-                                TAG,
+                                tag,
                                 "No edge to next node found. Assuming leaf node and sending response with next as null."
                             )
                             submitNotificationQuestionnaireResponse(
@@ -150,18 +156,18 @@ class  NotificationLoopJobService : JobService() {
                         }
                     } ?: run {
                         Log.d(
-                            TAG,
+                            tag,
                             "Service invariant voided: Received extra 'notificationNode' was null."
                         )
                     }
                 } else {
                     Log.d(
-                        TAG,
+                        tag,
                         "sMessageId, sChoiceIcon, sChoiceType or sChoiceValue was null, ending job."
                     )
                 }
             } catch (e: Throwable) {
-                Log.d(TAG, e.stackTraceToString())
+                Log.d(tag, e.stackTraceToString())
             } finally {
                 jobFinished(params, false)
             }
@@ -186,9 +192,9 @@ class  NotificationLoopJobService : JobService() {
         messageId: String,
         isDryRun: Boolean?
     ) {
-        if(isDryRun != null && isDryRun){
+        if (isDryRun != null && isDryRun) {
             Log.d(
-                TAG,
+                tag,
                 "Dry run registered, skipping response submission."
             )
         } else {
@@ -219,5 +225,38 @@ class  NotificationLoopJobService : JobService() {
                 .build()
             WorkManager.getInstance(applicationContext).enqueue(workRequest)
         }
+    }
+
+    private fun logVars(
+        isDryRun: Boolean?,
+        messageId: String?,
+        choiceIcon: String?,
+        choiceIconId: String?,
+        choiceIconMd5: String?,
+        choiceValue: String?,
+        choiceType: String?,
+    ) {
+        if (isDryRun == null) Log.d(tag, "MessagingBroadcastReceiver: WARNING isDryRun is null.")
+        if (messageId == null) Log.d(tag, "MessagingBroadcastReceiver: WARNING messageId is null.")
+        if (choiceIcon == null) Log.d(
+            tag,
+            "WARNING choiceIcon is null."
+        )
+        if (choiceIconId == null) Log.d(
+            tag,
+            "WARNING choiceIconId is null."
+        )
+        if (choiceIconMd5 == null) Log.d(
+            tag,
+            "WARNING choiceIconMd5 is null."
+        )
+        if (choiceValue == null) Log.d(
+            tag,
+            "WARNING choiceValue is null."
+        )
+        if (choiceType == null) Log.d(
+            tag,
+            "WARNING choiceType is null."
+        )
     }
 }

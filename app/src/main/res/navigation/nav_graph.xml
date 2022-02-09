@@ -36,6 +36,9 @@
         <action
             android:id="@+id/action_homeFragment_to_questionnaireFragment"
             app:destination="@id/questionnaireFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_responseOverviewFragment"
+            app:destination="@id/responseOverviewFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_loginFragment"
@@ -53,4 +56,8 @@
     <action
         android:id="@+id/action_global_questionnaireFragment"
         app:destination="@id/questionnaireFragment" />
+    <fragment
+        android:id="@+id/responseOverviewFragment"
+        android:name="com.app.moodtrack_android.ui.response_overview.ResponseOverviewFragment"
+        android:label="ResponseOverviewFragment" />
 </navigation>

@@ -45,7 +45,7 @@ class GraphQLQuestionnaireDao @Inject constructor(
                         data._id ?: throw IOException("Property _id is required for questionnaire.")
                     val mQuestionnaireId = data.questionnaireId
                     val creationDate = data.creationDate as String
-                    val mCreationDate = AppDateUtils.parseIsoDate(creationDate)
+                    val mCreationDate = AppDateUtils.parseIsoDateStringToLocalDateTime(creationDate)
                     val freeTextItems = data.freeTextItems?.map { q ->
                         QuestionnaireFreeTextQuestion(
                             index = q?.index ?: 0,
