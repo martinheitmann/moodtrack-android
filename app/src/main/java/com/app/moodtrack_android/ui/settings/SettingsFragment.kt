@@ -11,16 +11,13 @@ import com.app.moodtrack_android.R
 import com.app.moodtrack_android.databinding.FragmentSettingsBinding
 import com.app.moodtrack_android.model.Status
 import com.app.moodtrack_android.model.user.User
-import com.app.moodtrack_android.repository.LogEntryRepository
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class SettingsFragment : Fragment() {
 
     private val viewModel: SettingsViewModel by viewModels()
-    @Inject lateinit var logEntryRepository: LogEntryRepository
     private var _binding: FragmentSettingsBinding? = null
 
     private val binding get() = _binding!!
@@ -50,34 +47,31 @@ class SettingsFragment : Fragment() {
             viewModel.updateNotificationPrefs()
         }
 
-        viewModel.user.observe(viewLifecycleOwner, { user ->
-            when(user.status){
+        viewModel.user.observe(viewLifecycleOwner) { user ->
+            when (user.status) {
                 Status.SUCCESS -> setSuccessUi()
                 Status.ERROR -> setErrorUi()
                 Status.LOADING -> setLoadingUi()
-                null -> setErrorUi()
             }
-        })
+        }
 
-        viewModel.user.observe(viewLifecycleOwner, { user ->
+        viewModel.user.observe(viewLifecycleOwner) { user ->
             val mUser = viewModel.user.value?.data as User?
             if (mUser != null && user.status == Status.SUCCESS) {
                 mUser.notificationsEnabled?.let { value ->
-                    if(value) setNotificationsEnabledUi()
+                    if (value) setNotificationsEnabledUi()
                     else setNotificationsDisabledUi()
                 }
-            }
-            else if (user.status == Status.LOADING) setNotificationsLoadingUi()
-        })
+            } else if (user.status == Status.LOADING) setNotificationsLoadingUi()
+        }
 
-        viewModel.signOutPending.observe(viewLifecycleOwner, { signOutPending ->
-            if(signOutPending){
+        viewModel.signOutPending.observe(viewLifecycleOwner) { signOutPending ->
+            if (signOutPending) {
                 setSignOutPendingUi()
-            }
-            else {
+            } else {
                 resetSignOutUi()
             }
-        })
+        }
     }
 
     private fun setErrorUi(){

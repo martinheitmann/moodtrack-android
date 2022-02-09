@@ -12,14 +12,12 @@ import com.app.moodtrack_android.R
 import com.app.moodtrack_android.auth.AuthResult
 import com.app.moodtrack_android.databinding.FragmentRegisterBinding
 import com.app.moodtrack_android.model.user.User
-import com.app.moodtrack_android.repository.LogEntryRepository
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RegisterFragment : Fragment() {
 
     val viewModel: RegisterViewModel by viewModels()
-    private lateinit var logEntryRepository: LogEntryRepository
     private var _binding: FragmentRegisterBinding? = null
 
     private val binding get() = _binding!!
@@ -43,25 +41,25 @@ class RegisterFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        viewModel.isLoading.observe(viewLifecycleOwner, {
-            if(it){
+        viewModel.isLoading.observe(viewLifecycleOwner) {
+            if (it) {
                 binding.registerProgressBar.visibility = View.VISIBLE
                 binding.registerButtonRegister.visibility = View.GONE
             } else {
                 binding.registerProgressBar.visibility = View.GONE
                 binding.registerButtonRegister.visibility = View.VISIBLE
             }
-        })
+        }
 
-        viewModel.errorMessage.observe(viewLifecycleOwner, {
-            if(it != null){
+        viewModel.errorMessage.observe(viewLifecycleOwner) {
+            if (it != null) {
                 binding.registerTextviewError.text = it
                 binding.registerTextviewError.visibility = View.VISIBLE
             } else {
                 binding.registerTextviewError.text = ""
                 binding.registerTextviewError.visibility = View.GONE
             }
-        })
+        }
     }
 
     private fun attemptRegisterUser(){

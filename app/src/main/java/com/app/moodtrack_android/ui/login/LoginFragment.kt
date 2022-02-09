@@ -15,7 +15,6 @@ import com.app.moodtrack_android.R
 import com.app.moodtrack_android.auth.AuthResult
 import com.app.moodtrack_android.databinding.FragmentLoginBinding
 import com.app.moodtrack_android.model.user.User
-import com.app.moodtrack_android.repository.LogEntryRepository
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -27,7 +26,6 @@ class LoginFragment : Fragment() {
     val TAG = "LoginFragment"
 
     private val viewModel: LoginViewModel by viewModels()
-    private lateinit var logEntryRepository: LogEntryRepository
     private var _binding: FragmentLoginBinding? = null
 
     private val binding get() = _binding!!
@@ -57,14 +55,14 @@ class LoginFragment : Fragment() {
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
-        viewModel.errorMessage.observe(viewLifecycleOwner, { error ->
-            if(error != null){
+        viewModel.errorMessage.observe(viewLifecycleOwner) { error ->
+            if (error != null) {
                 binding.loginTextviewErrorMessage.text = error
                 binding.loginTextviewErrorMessage.visibility = View.VISIBLE
             } else {
                 binding.loginTextviewErrorMessage.visibility = View.GONE
             }
-        })
+        }
 
         viewModel.isLoading.observe(viewLifecycleOwner){
             setLoginButtonLoading(it)

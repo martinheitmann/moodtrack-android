@@ -158,6 +158,7 @@ class QuestionnaireFragment : Fragment() {
                 viewModel.currentQuestion.value?.index ?: -1,
                 viewModel.questionnaireList.size)
             if (text != null) {
+                viewModel.setNewCurrentInputText(text.toString())
                 if(text.isEmpty()){
                     setNextButton(false, isFinal)
                 } else {

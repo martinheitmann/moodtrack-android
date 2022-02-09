@@ -1,0 +1,14 @@
+mutation CreateEventLog($_id: ID!, $eventLog: EventLogInput!) {
+    createEventLog(_id: $_id, eventLog: $eventLog) {
+        timestamp
+        actor {
+            _id
+        }
+        action
+        eventObject
+        extras {
+            key
+            value
+        }
+    }
+}

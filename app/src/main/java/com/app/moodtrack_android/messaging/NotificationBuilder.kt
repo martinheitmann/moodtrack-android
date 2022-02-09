@@ -91,7 +91,7 @@ class NotificationBuilder @Inject constructor(
     ) {
         // Create an explicit intent for an Activity
         val intent = Intent(context, MainActivity::class.java)
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE or 0)
 
         // Get the layouts to use in the custom notification
         val notificationLayout = generateHorizontalNotificationRemoteView(text, buttons)

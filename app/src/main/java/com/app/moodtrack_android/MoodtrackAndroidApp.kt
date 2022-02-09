@@ -15,5 +15,6 @@ class MoodtrackAndroidApp : Application(), Configuration.Provider {
     override fun getWorkManagerConfiguration() =
         Configuration.Builder()
             .setWorkerFactory(workerFactory)
+            .setJobSchedulerJobIdRange(0, Integer.MAX_VALUE)
             .build()
 }

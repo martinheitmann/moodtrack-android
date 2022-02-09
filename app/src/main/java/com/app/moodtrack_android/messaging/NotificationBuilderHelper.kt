@@ -105,7 +105,7 @@ class NotificationBuilderHelper @Inject constructor(
      */
     private suspend fun getBitmapsForQuestionNode(questionNode: NQNode): List<Bitmap> {
         val storedFiles = getStoredFiles(questionNode.data.question.questionChoices)
-        return storedFiles.map { sf -> convertStoredFileToBitmap(sf) }
+        return storedFiles.map { sf -> fileRepository.convertStoredFileToBitmap(sf) }
     }
 
     /***
@@ -115,32 +115,6 @@ class NotificationBuilderHelper @Inject constructor(
     private suspend fun getStoredFiles(choices: List<NQQuestionChoice>): List<StoredFile> {
         val remoteIds = choices.map { c -> c.choiceIconId }
         return fileRepository.getFilesByRemoteId(remoteIds)
-    }
-
-    /***
-     * Converts a file to a bitmap. Accepts .png and .jpg file
-     * extensions. File must be base64 encoded.
-     */
-    private fun convertStoredFileToBitmap(storedFile: StoredFile): Bitmap {
-        try {
-            val filename = storedFile.filename
-            val bitmap: Bitmap?
-            val ext = FilenameUtils.getExtension(filename) // returns file extension
-            // Check since only png, jpg and bmp is supported
-            if (ext == "png" || ext == "jpg") {
-                val data: String = storedFile.data
-                val decodedString: ByteArray = Base64.decode(data, Base64.DEFAULT)
-                val bitmapFromString =
-                    BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                bitmap = bitmapFromString
-                return bitmap
-                    ?: throw IOException("Could not convert bitmap for file with name $filename.")
-            } else {
-                throw IOException("Invalid file format received. Found $ext.")
-            }
-        } catch (e: Throwable) {
-            throw e
-        }
     }
 
     /***
@@ -184,7 +158,7 @@ class NotificationBuilderHelper @Inject constructor(
                 applicationContext,
                 Random().nextInt(),
                 intent,
-                0
+                PendingIntent.FLAG_IMMUTABLE or 0
             )
         }
         throw IOException("Invalid NQNode passed: type must be 'question'.")
@@ -224,7 +198,7 @@ class NotificationBuilderHelper @Inject constructor(
         }
     }
 
-    suspend fun buildNotificationQuestionnaireAndNotify(
+    fun buildNotificationQuestionnaireAndNotify(
         mNode: NQNode?,
         notificationId: Int,
         messageId: String,

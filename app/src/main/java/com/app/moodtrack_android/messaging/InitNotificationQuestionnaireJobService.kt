@@ -1,5 +1,6 @@
 package com.app.moodtrack_android.messaging
 
+import android.annotation.SuppressLint
 import android.app.job.JobParameters
 import android.app.job.JobService
 import android.util.Log
@@ -24,10 +25,11 @@ import javax.inject.Inject
  * This class is responsible for building and sending the very first notification
  * from the questionnaire.
  */
+@SuppressLint("SpecifyJobSchedulerIdRange")
 @AndroidEntryPoint
 class InitNotificationQuestionnaireJobService : JobService() {
 
-    val TAG = "INotifQuestJobService"
+    val tag = "INotifQuestJobService"
 
     // Define the coroutine scope
     private val serviceJob = Job()
@@ -68,7 +70,7 @@ class InitNotificationQuestionnaireJobService : JobService() {
                             NotificationQuestionnaireMessage::class.java
                         )
                     val isDryRun = notificationQuestionnaireMessage.isDryRun
-                    Log.d(TAG, "isDryRun: $isDryRun")
+                    Log.d(tag, "isDryRun: $isDryRun")
                     val messageId = notificationQuestionnaireMessage.messageId
                     // Fetch the edges and nodes for this questionnaire.
                     notificationQuestionnaireRepository
@@ -111,7 +113,7 @@ class InitNotificationQuestionnaireJobService : JobService() {
                         }
                 }
             } catch (e: Throwable) {
-                Log.d(TAG, e.stackTraceToString())
+                Log.d(tag, e.stackTraceToString())
             } finally {
                 jobFinished(params, false)
             }

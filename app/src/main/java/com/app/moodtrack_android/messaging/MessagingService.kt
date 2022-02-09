@@ -7,7 +7,6 @@ import android.os.PersistableBundle
 import android.util.Log
 import com.app.moodtrack_android.auth.FirebaseAuthClient
 import com.app.moodtrack_android.firestore.FirestoreUserDao
-import com.app.moodtrack_android.repository.LogEntryRepository
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.google.gson.Gson
@@ -28,8 +27,6 @@ class MessagingService : FirebaseMessagingService() {
     lateinit var userDao: FirestoreUserDao
     @Inject
     lateinit var authClient: FirebaseAuthClient
-    @Inject
-    lateinit var loggingRepository: LogEntryRepository
 
     /* Called when the old token expires or is compromised*/
     override fun onNewToken(token: String) {
