@@ -47,8 +47,8 @@ android {
         minSdkVersion 23
         //noinspection OldTargetApi
         targetSdkVersion 32
-        versionCode 9
-        versionName "0.9.2-b"
+        versionCode 10
+        versionName "0.9.5-b"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments clearPackageData: 'true'
