@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_homeFragment_to_responseOverviewFragment"
             app:destination="@id/responseOverviewFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_userUploadsFragment"
+            app:destination="@id/userUploadsFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_loginFragment"
@@ -60,4 +63,9 @@
         android:id="@+id/responseOverviewFragment"
         android:name="com.app.moodtrack_android.ui.response_overview.ResponseOverviewFragment"
         android:label="ResponseOverviewFragment" />
+    <fragment
+        android:id="@+id/userUploadsFragment"
+        android:name="com.app.moodtrack_android.ui.uploads.UserUploadsFragment"
+        android:label="user_uploads_fragment"
+        tools:layout="@layout/user_uploads_fragment" />
 </navigation>

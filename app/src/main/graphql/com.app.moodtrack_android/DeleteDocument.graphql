@@ -1,0 +1,3 @@
+mutation DeleteDocument($_id: ID!, $ownerId: ID!){
+    deleteDocument(_id: $_id, ownerId: $ownerId)
+}

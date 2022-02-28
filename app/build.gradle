@@ -16,7 +16,7 @@ keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 configProperties.load(new FileInputStream(configPropertiesFile))
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 32
     buildToolsVersion "30.0.3"
 
     buildFeatures {
@@ -30,6 +30,10 @@ android {
     apollo {
         // instruct the compiler to generate Kotlin models
         generateKotlinModels.set(true)
+        // custom type mappings
+        customTypeMapping = [
+                "Upload" : "com.apollographql.apollo.api.FileUpload"
+        ]
     }
 
     compileOptions {
@@ -42,9 +46,9 @@ android {
         applicationId "com.app.moodtrack_android"
         minSdkVersion 23
         //noinspection OldTargetApi
-        targetSdkVersion 31
-        versionCode 8
-        versionName "0.9.1-b"
+        targetSdkVersion 32
+        versionCode 9
+        versionName "0.9.2-b"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments clearPackageData: 'true'
@@ -83,7 +87,7 @@ android {
 
 dependencies {
     def nav_version = "2.4.0-rc01"
-    def lifecycle_version = "2.4.0"
+    def lifecycle_version = "2.4.1"
     def arch_version = "2.1.0"
     def work_version = "2.7.1"
     def room_version = "2.4.1"

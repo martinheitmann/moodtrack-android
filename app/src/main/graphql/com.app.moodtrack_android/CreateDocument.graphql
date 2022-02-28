@@ -1,0 +1,7 @@
+mutation CreateDocument($file: Upload!, $ownerId: ID!){
+    uploadDocument(file: $file, ownerId: $ownerId){
+        filename
+        encoding
+        mimetype
+    }
+}
