@@ -179,7 +179,7 @@ class UserUploadsViewModel @Inject constructor(
                     val tempFile = decodedFile(fDoc)
                     tempFile?.let { file ->
                         Log.d(tag, "decodedFile bytes was not null: ${file.name}")
-                        val extension = MimeTypeMap.getFileExtensionFromUrl(file.name)
+                        val extension = MimeTypeMap.getFileExtensionFromUrl(file.name.replace(" ", ""))
                         extension?.let { ext ->
                             Log.d(tag, "decodeDocFile ext was not null: $ext")
                             val type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(ext)
