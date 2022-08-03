@@ -59,7 +59,7 @@ class NotificationBuilder @Inject constructor(
         val sb: Spannable = SpannableString(notificationTitle)
         sb.setSpan(StyleSpan(Typeface.BOLD), 0, sb.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         val builder = NotificationCompat.Builder(context, context.getString(R.string.notification_channel_id))
-            .setSmallIcon(R.drawable.ic_mt_notification_icon)
+            .setSmallIcon(R.mipmap.moodtrack_now_letter_ic)
             .setContentTitle(sb) // Using Spannable for bold title.
             .setContentText(notificationBody)
             .setStyle(
@@ -99,7 +99,7 @@ class NotificationBuilder @Inject constructor(
         // Apply the layouts to the notification
         val customNotification =
             NotificationCompat.Builder(context, context.getString(R.string.notification_channel_id))
-                .setSmallIcon(R.drawable.ic_mt_notification_icon)
+                .setSmallIcon(R.mipmap.moodtrack_now_letter_ic)
                 .setStyle(NotificationCompat.DecoratedCustomViewStyle())
                 .setCustomContentView(notificationLayout)
                 .setContentIntent(pendingIntent)

@@ -9,9 +9,9 @@
     <application
         android:name=".MoodtrackAndroidApp"
         android:usesCleartextTraffic="${clearTextEnabled}"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/moodtrack_now_letter_ic"
         android:label="@string/app_display_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/moodtrack_now_letter_ic_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
         tools:ignore="AllowBackup">
