@@ -36,7 +36,7 @@ class SettingsViewModel
         }
     }
 
-    fun fetchUser() {
+    private fun fetchUser() {
         uiScope.launch(Dispatchers.IO) {
             if (user.value == null) userRepository.fetchUser()
         }
@@ -64,5 +64,12 @@ class SettingsViewModel
                 userRepository.updateUserNotificationPreferences(mUser.notificationsEnabled)
             }
         }
+    }
+
+    fun ellipsizeString(str: String?): String {
+        if(str != null && str.length >= 5){
+            return "...${str.substring(str.length - 6, str.length - 1)}"
+        }
+        return "Ukjent"
     }
 }

@@ -71,23 +71,27 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_responseOverviewFragment, bundle)
         }
 
+        binding.homeImagebuttonUploadView.setOnClickListener {
+            val bundle = Bundle()
+            findNavController().navigate(R.id.action_homeFragment_to_userUploadsFragment, bundle)
+        }
+
         binding.homeButtonErrorRetry.setOnClickListener {
             viewModel.fetchUser();
         }
 
-        viewModel.user.observe(viewLifecycleOwner, { user ->
-            when(user.status){
+        viewModel.user.observe(viewLifecycleOwner) { user ->
+            when (user.status) {
                 SUCCESS -> showSuccessUi()
                 ERROR -> showErrorUi()
                 LOADING -> showLoadingUi()
-                null -> showErrorUi()
             }
-        })
+        }
 
-        viewModel.user.observe(viewLifecycleOwner, { user ->
-            if(user.status == SUCCESS && user.data is User)
-            viewModel.updateRegistrationToken(user.data)
-        })
+        viewModel.user.observe(viewLifecycleOwner) { user ->
+            if (user.status == SUCCESS && user.data is User)
+                viewModel.updateRegistrationToken(user.data)
+        }
     }
 
     override fun onStart() {

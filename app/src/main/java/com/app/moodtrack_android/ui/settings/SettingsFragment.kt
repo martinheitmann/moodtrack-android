@@ -84,7 +84,7 @@ class SettingsFragment : Fragment() {
         binding.settingsLinearlayoutInfo.visibility = View.VISIBLE
         binding.settingsProgressBar.visibility = View.GONE
         binding.settingsLinearlayoutError.visibility = View.GONE
-        binding.settingsTextviewUserId.text = (viewModel.user.value?.data as User)._id
+        binding.settingsTextviewUserId.text = viewModel.ellipsizeString((viewModel.user.value?.data as User)._id)
         binding.settingsTextviewUserEmail.text = (viewModel.user.value?.data as User).email
     }
 

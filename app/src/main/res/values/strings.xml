@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">MoodTracker-Android-Alerts</string>
-    <string name="app_display_name">MoodTrack</string>
+    <string name="app_name">NOW Interactions</string>
+    <string name="app_display_name">NOW</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -67,8 +67,10 @@
 
     <!-- App contents -->
 
-    <string name="app_text_info">MoodTrack er del av et forskningsprosjekt som utforsker forskjellige teknikker for å innhente informasjon fra brukere. Vi ønsker å gjøre dette slik at det blir enkelt og effektivt for brukeren samtidig som at informasjonen er nøyaktig. Målet er å anvende disse teknikkene for å hjelpe folk som har en vanskelig hverdag f.eks pga stress eller psykiske problemer.
-Ved å svare på disse spørsmålene hjelper du oss videre i prosjektet.</string>
+    <string name="app_text_info">NOW Interactions er del av et forskningsprosjekt som utforsker forskjellige teknikker for å innhente informasjon fra brukere. Vi ønsker å gjøre dette slik at det blir enkelt og effektivt for brukeren samtidig som informasjonen er nøyaktig.
+        Målet er å anvende disse teknikkene for å lette hverdagene til folk som trenger å gi informasjon, for eksempel pga stress, hodepine eller andre grunner.
+        Ved å være med på dette forsøket kan du bidra til å fremme forskingen.
+    </string>
 
     <string name="app_contact_info">Hvis du har tilbakemeldinger eller spørsmål angående appen eller prosjektet, gjerne send en epost til Rosaline.Barendregt@uib.no.</string>
 

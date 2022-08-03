@@ -1,0 +1,10 @@
+query DocumentsList($ownerId: ID!) {
+    documentsByOwner(ownerId: $ownerId){
+        _id
+        ownerId
+        filename
+        length
+        md5
+        uploadDate
+    }
+}

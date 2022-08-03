@@ -2,16 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.app.moodtrack_android">
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:name=".MoodtrackAndroidApp"
         android:usesCleartextTraffic="${clearTextEnabled}"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/moodtrack_now_letter_ic"
         android:label="@string/app_display_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/moodtrack_now_letter_ic_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
         tools:ignore="AllowBackup">
