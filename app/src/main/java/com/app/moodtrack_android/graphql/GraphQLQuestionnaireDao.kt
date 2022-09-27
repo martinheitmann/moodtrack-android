@@ -49,7 +49,10 @@ class GraphQLQuestionnaireDao @Inject constructor(
                     val freeTextItems = data.freeTextItems?.map { q ->
                         QuestionnaireFreeTextQuestion(
                             index = q?.index ?: 0,
-                            question = q?.question ?: ""
+                            question = q?.question ?: "",
+                            additionalProperties = q?.additionalProperties?.map { p ->
+                                QuestionProperties(key = p?.key ?: "", value = p?.value ?: "")
+                            } ?: emptyList()
                         )
                     } ?: emptyList()
                     val multiChoiceItems = data.multipleChoiceItems?.map { q ->
@@ -60,8 +63,11 @@ class GraphQLQuestionnaireDao @Inject constructor(
                                 MultiChoiceQuestionItem(
                                     display = c?.display ?: "",
                                     value = c?.value ?: "",
-                                    type = c?.display ?: ""
+                                    type = c?.display ?: "",
                                 )
+                            } ?: emptyList(),
+                            additionalProperties = q?.additionalProperties?.map { p ->
+                                QuestionProperties(key = p?.key ?: "", value = p?.value ?: "")
                             } ?: emptyList()
                         )
                     } ?: emptyList()

@@ -5,6 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebResourceRequest
+import android.webkit.WebResourceResponse
+import android.webkit.WebView
+import androidx.annotation.RequiresApi
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,9 +17,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.moodtrack_android.R
 import com.app.moodtrack_android.databinding.FragmentQuestionnaireBinding
+import com.app.moodtrack_android.model.questionnaire.QuestionProperties
 import com.app.moodtrack_android.model.questionnaire.QuestionnaireFreeTextQuestion
 import com.app.moodtrack_android.model.questionnaire.QuestionnaireMultiChoiceQuestion
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class QuestionnaireFragment : Fragment() {
@@ -76,6 +82,7 @@ class QuestionnaireFragment : Fragment() {
                 binding.questionnaireMultiquestionContainer.visibility = View.VISIBLE
                 binding.questionnaireFreetextContainer.visibility = View.GONE
                 binding.qustionnaireQuestionTextview.text = currentQuestion.question
+                checkProperties(currentQuestion.additionalProperties)
 
                 // Set the data shown in the multi choice recyclerview
                 choiceAdapter.setData(currentQuestion.choices)
@@ -92,6 +99,7 @@ class QuestionnaireFragment : Fragment() {
                 binding.questionnaireMultiquestionContainer.visibility = View.GONE
                 binding.questionnaireFreetextContainer.visibility = View.VISIBLE
                 binding.qustionnaireQuestionTextview.text = currentQuestion.question
+                checkProperties(currentQuestion.additionalProperties)
 
                 val currentInput = viewModel.registeredChoices[currentQuestion.index]
                 if (currentInput != null) {
@@ -261,5 +269,30 @@ class QuestionnaireFragment : Fragment() {
         activity?.runOnUiThread {
             findNavController().popBackStack()
         }
+    }
+
+    private fun checkProperties(props: List<QuestionProperties>){
+        props.forEach { prop ->
+            when(prop.key){
+                "android.widget.breathingExercise" -> {
+                    if(prop.value == "enabled"){
+                        loadBreathingExerciseAsset()
+                    }
+                }
+                else -> {
+                    binding.qustionnaireQuestionWebview.visibility = View.GONE
+                }
+            }
+        }
+    }
+
+    private fun loadBreathingExerciseAsset(){
+        binding.qustionnaireQuestionWebview.settings.javaScriptEnabled = true
+        binding.qustionnaireQuestionWebview.settings.allowFileAccess = true
+        binding.qustionnaireQuestionWebview.setInitialScale(1)
+        binding.qustionnaireQuestionWebview.settings.loadWithOverviewMode = true
+        binding.qustionnaireQuestionWebview.settings.useWideViewPort = true
+        binding.qustionnaireQuestionWebview.loadUrl("file:///android_asset/html/pulsing_animation.html")
+        binding.qustionnaireQuestionWebview.visibility = View.VISIBLE
     }
 }

@@ -12,10 +12,18 @@ query Questionnaire($questionnaireId: ID) {
                 value
                 type
             }
+            additionalProperties {
+                value
+                key
+            }
         }
         freeTextItems {
             index
             question
+            additionalProperties {
+                key
+                value
+            }
         }
     }
 }

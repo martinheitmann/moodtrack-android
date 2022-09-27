@@ -1,0 +1,41 @@
+<html>
+<head>
+    <style type="text/css">
+      * {
+        background: #053c5e;
+      }
+
+      .orb {
+        height: 70px;
+        width: 70px;
+        border-radius: 200px;
+        background: #1f7a8c;
+        margin: auto;
+        margin-top: 200px;
+      }
+
+      .orb_1 {
+        animation-name: orb_1;
+        animation-duration: 4s;
+        animation-delay: 0s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+        animation-direction: alternate;
+      }
+
+      @keyframes orb_1 {
+        from {
+          transform: scale(1);
+          background: #db222a;
+        }
+        to {
+          transform: scale(3);
+          background: #bfdbf7;
+        }
+      }
+    </style>
+</head>
+<body>
+<div class="orb orb_1"></div>
+</body>
+</html>
